@@ -36,7 +36,7 @@ Repository for my Bachelor's Thesis *Comparative Analysis of Event-Based Denoisi
 ### :camera: Screenshots
 
 <div align="center"> 
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+  <img src="assets/BAF.gif" width=500>
 </div>
 
 
