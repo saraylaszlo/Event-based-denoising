@@ -1,13 +1,18 @@
 import data_loader
 import numpy as np
 
-def BAF(sensor_height, sensor_width, events, T):
+def BAF(sensor_height:int, sensor_width:int, events:np.ndarray, T:float):
     """
-    BAF implementation based on the provided description.
-    sensor_height: Height of the event sensor
-    sensor_width: Width of the event sensor
-    events: List of events, each event is a list [t, x, y, p]
-    tau: Time constant for the exponential decay
+    Inputs: sensor dimensions (order: height, width), events array, time threshold T
+    
+    BAF algorithm implementation for event-based data.
+    
+    Description: This implementation takes on an batch of events, splits them by polarity and filters them based on the proposed spatiotemporal
+    criteria in the BAF paper linked below.
+
+    https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Frame-free+dynamic+digital+vision&btnG=
+
+    Output: Filtered events array, output file path string(This is just for convenience, but will be changed)
     """
 
     # Initialize timestamp matrix (Both negative and positive) for the filter with added padding for the edges
@@ -46,7 +51,9 @@ def BAF(sensor_height, sensor_width, events, T):
 
     
              
-    return output_events, "events/processed_events/BAF/11_4"
+    return np.array(output_events), "events/processed_events/BAF/11_4"
+
+
 
 PATH = 'events/raw_events/11_4.h5'
 

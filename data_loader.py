@@ -4,10 +4,9 @@ import os
 
 def load_events(file_path:str, filter_polarity:bool=False):
     """
-    Input: File path, filter_polarity (bool)
+    Input: File path for original .h5 file, Split by polarity 
 
     Loads .h5 file events into an array with columns (t, x, y, p).
-
 
     Output: events (np.ndarray of shape [N,4])   OR   pos, neg (two np.ndarrays of shape [N,4], split by polarity)
     """
@@ -31,34 +30,27 @@ def load_events(file_path:str, filter_polarity:bool=False):
     return events
 
 
-def save_h5_events(file_path, events):
+
+
+def save_h5_events(file_path:str, events:np.ndarray):
     """
-    Saves events to a single compound dataset 'events' with fields (x,y,t,p).
-    Assuming input 'events' is a list or array with order [t, x, y, p].
+    Input: File patch for saved .h5 file, Events array
+
+    Saves events [x, y, t, p] to a single compound dataset 'events' in a .h5 file.
+    
+    Output: HD file at specified path
     """
     
-    # 1. Ensure directory exists
+    # Check for directory
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-    # 2. Convert to NumPy array if it isn't one already (for efficient slicing)
-    events_arr = np.array(events)
+    # Load columns
+    t = events[:, 0].astype(np.int64)
+    x = events[:, 1].astype(np.int32)
+    y = events[:, 2].astype(np.int32)
+    p = events[:, 3].astype(np.int8)
 
-    if events_arr.size == 0:
-        print(f"Warning: No events to save in {file_path}")
-        return
-
-    # 3. Extract columns using correct indices [t, x, y, p]
-    #    t = index 0
-    #    x = index 1
-    #    y = index 2
-    #    p = index 3
-    t = events_arr[:, 0].astype(np.int64)
-    x = events_arr[:, 1].astype(np.int32)
-    y = events_arr[:, 2].astype(np.int32)
-    p = events_arr[:, 3].astype(np.int8)
-
-    # 4. Create the Compound Data Structure
-    #    This matches the specific format your new function was trying to create.
+    # Create the Compound Data Structure, to match the original format
     compound_dtype = np.dtype([
         ('x', np.int32),
         ('y', np.int32),
@@ -72,12 +64,12 @@ def save_h5_events(file_path, events):
     structured['t'] = t
     structured['p'] = p
 
-    # 5. Save to file
+    # Save to .h5
     with h5py.File(file_path, 'w') as f:
-        # Create a single dataset named 'events' containing the structured data
         f.create_dataset('events', data=structured, dtype=compound_dtype)
         
     print(f"Saved {len(t)} events to {file_path}")
+
 
 
 def height_width(file_path):
