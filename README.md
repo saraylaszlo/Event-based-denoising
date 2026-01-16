@@ -36,7 +36,7 @@ Repository for my Bachelor's Thesis *Comparative Analysis of Event-Based Denoisi
 ### :camera: Screenshots
 
 <div align="center"> 
-  <img src="assets/BAF.gif" width=100>
+  <img src="assets/BAF.gif" width=300>
 </div>
 
 
