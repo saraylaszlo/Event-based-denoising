@@ -1,5 +1,5 @@
 # Event-based-denoising
-This is the corresponding repository for my Bachelor's Thesis *Comparative Analysis of Event-Based Denoising Techniques for Precision Eye Tracking* 
+Repository for my Bachelor's Thesis *Comparative Analysis of Event-Based Denoising Techniques for Precision Eye Tracking*. In this repository you will find the implemented denoising algrithms on the [Event-based Eye Tracking Challenge - CVPR 2025](https://www.kaggle.com/competitions/event-based-eye-tracking-cvpr-2025/data) dataset
 
 
 <!-- Table of Contents -->
